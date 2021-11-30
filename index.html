@@ -75,8 +75,13 @@
         width: 200px;
         border: 1mm solid;
         
-    } 
-    
+    }
+    @media only screen and (min-width: 900px) {/*при изменении ширины экрана меняется цвета анимации*/
+      	@keyframes movesmile {
+        	0%   {background: blue; left: 0px; top: 0px;}
+          	100%  {background: green; left: 200px; top: 0px;} 
+		}
+	}
 	</style>
   </head>
   <body>
