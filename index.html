@@ -5,18 +5,94 @@
   	<meta charset="UTF-8">
     	<title>Рецепт</title>
 	<style>
-	table, th, td {
+    html{
+    	font-size: 160px;
+    }
+    :root{
+    	--colortext1: #a2a2d0;
+        --font-size2: 20px;
+    }
+    /*границы для таблицы*/
+	th, td {
   		border: 1px solid black;
+	}
+    /*картинка*/
+    img{
+   		border: 1mm solid;
+        color: #fca89f;
+        position: relative;
+        left: 60px;
+    }
+    *{
+    	font-family: serif;
+    }
+    section > p{
+    	color: var(--colortext1);
+        font-weight:bold;
+        font-size: var(--font-size2);
+        width: calc(40% + 2vw + 3em);
+
+    }
+    .products li {
+    	color: #b02112;
+    }
+   	h2{
+    	color: #9a366b;
+        font-size: 2rem;
+    }
+    h1{
+    	font-size: 3em;
+        color: #993366;
+    }
+    html{
+    	font-size: 16px;
+    }
+    h1:hover{
+    	color: #ffc7c7;	
+    }
+    a:visited{
+    	color: green;
+    }
+    #links::after{
+    	content: "(´｡• ω •｡)";
+        color: black;
+        position: relative;
+        animation: movesmile 5s infinite;
+        animation-direction: alternate;
+    }
+    @keyframes movesmile {
+  		0%   {background: red; left: 0px; top: 0px;}
+  		100%  {background: yellow; left: 200px; top: 0px;} 
+	}
+    .highlight{
+    	color: red;
+        background: yellow;
+        display: inline;
+    }
+    h2+ul{
+    	display: block;
+    	background: yellow;
+        width: 200px;
+        border: 1mm solid;
+        
+    }
+    @media only screen and (min-width: 900px) {/*при изменении ширины экрана меняется цвета анимации*/
+      	@keyframes movesmile {
+        	0%   {background: blue; left: 0px; top: 0px;}
+          	100%  {background: green; left: 200px; top: 0px;} 
+		}
 	}
 	</style>
   </head>
   <body>
     <article>
       <h1>Яичница-глазунья</h1>
-      <section>
-        <p>Простейшее блюдо, которое сможет приготовить <s>почти</s> каждый.</p>
+      <section id=intro>
+        <p>Простейшее блюдо, которое сможет приготовить 
+        	<s >почти</s> 
+        каждый.</p>
       </section>
-      <section>
+      <section class="products">
         <h2>Список продуктов:</h2>
         <ul>
           <li>Яйца - 2шт</li>
@@ -24,12 +100,12 @@
           <li>Соль - шепотка</li>
         </ul>
       </section>
-      <section>
+      <section id=cooking>
         <h2>Пошаговое приготовление:</h2>
         <img src="egg/Egg1.jpg" alt="Яичница1">
-        <p>На сухую холодную сковороду выкладываем сливочное масло и ставим на огонь выше среднего. 				Растапливаем сливочное масло.</p>
+        <p>На <gish class="highlight">сухую холодную</gish> сковороду выкладываем сливочное масло и ставим на огонь выше среднего. Растапливаем сливочное масло.</p>
         <img src="egg/Egg2.jpg" alt="Яичница2">
-        <p>Аккуратно разбиваем яйца и выливаем их на сковороду на некотором расстоянии друг от друга, 				стараясь не повредить желтки.</p>
+        <p><gish class="highlight">Аккуратно</gish> разбиваем яйца и выливаем их на сковороду на некотором расстоянии друг от друга, 				стараясь не повредить желтки.</p>
         <p>Жарим яичницу-глазунью на минимальном огне примерно 3-4 минуты, до тех пор, пока белок полностью 			не схватится, желток должен остаться жидким. Чтобы желток не затянулся белой плёнкой, а 				оставался ярким, сковороду крышкой лучше не накрывать.</p>
         <img src="egg/Egg3.jpg" alt="Яичница3">
 		<p>Незадолго до окончания времени приготовления солим яичницу, притом только белок, так как на 				желтке от соли останутся белые пятна.</p>
@@ -37,7 +113,8 @@
         <p>Перекладываем готовую яичницу на тарелку при помощи широкой лопатки. Приятного апетита!</p>
       </section>
     </article>
-	<section>
+    
+	<section id=caloric>
     	<h2>Калорийность и пищевая ценность:</h2>
         <table>
           <caption>Калорийность и пищевая ценность яичницы на 100гр</caption>
@@ -62,12 +139,23 @@
       	</table>
 	</section>
     <section>
-    	<h2>Ссылки:</h2>
+    	<h2 id=links>Ссылки:</h2>
         <ul>
-          <li><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><s>Рецепт на все случаи жизни</s>; </a> </li>
-          <li><a href="https://www.russianfood.com/recipes/recipe.php?rid=160836">Ссылка на рецепт; </a> </li>
-          <li><a href="https://bonfit.ru/kalorii/yaytsa/yaichnitsa/kalorii-yaichnitsa/#:~:text=Яичница%20—%20калорийность%3A%20212%20ККал,г.%20жиры%2C%202%2C08%20г.%20углеводы">Расчет калорийности </a> </li>
+          <li>
+          	<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><s>Рецепт на все случаи жизни</s>; 
+            </a> 
+          </li>
+          <li>
+          	<a href="https://www.russianfood.com/recipes/recipe.php?rid=160836">Ссылка на рецепт; 
+            </a> 
+          </li>
+          <li>
+          	<a href="https://bonfit.ru/kalorii/yaytsa/yaichnitsa/kalorii-yaichnitsa/#:~:text=Яичница%20—%20калорийность%3A%20212%20ККал,г.%20жиры%2C%202%2C08%20г.%20углеводы">Расчет калорийности 
+            </a> 
+          </li>
         </ul>
     </section>
   </body>
 </html>
+
+
