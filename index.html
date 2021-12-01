@@ -164,7 +164,7 @@
   			console.log(a);
 		}
 		f(a);//выведет 5
-        	console.log(a);//выведет 4
+        console.log(a);//выведет 4
         
 		//разница между var и let
         	let testlet=1;
@@ -179,24 +179,30 @@
 		//отличия равенств и for
         	//введем глобальную переменную
         	globalThis["numbers"] = ["1", 2, 3, "четыре", 5];
-		console.log(numbers);
-		for (let i = 0; i < numbers.length; i++) {
-  			if(typeof numbers[i]==="string"){
+            Array.prototype.someProperty = true;
+			console.log(numbers);
+			
+            for (let i = 0; i < numbers.length; i++) {
+            		console.log("вывожу массив "+numbers[i])
+                    
+  					if(typeof numbers[i]==="string"){
             			numbers[i] += 10;
             			console.log(numbers[i]);//выводим 110 и четыре10, т.к. "1"+"10"              
             		}
-		}
+			}
         	for(let i of numbers){
+            	console.log("вывожу массив "+i)
         		if(i=="2"){
             			i += 10;
                 		console.log(i);//выводится 12, хотя 2 - это число
             		}
         	}
+            //особенность in с массивами
+            
         	for(let i in numbers){
-        		if(numbers[i]>1){
-            			console.log(numbers[i]);//"110"распознана как цифра. Выводятся 110,2,3,5
-            		}
-		}
+            	console.log(i+" = "+numbers[i]);//здесь увидим, что также вывелось  6ым объектом и свой-во
+                
+			}
         	//уберем "numbers" за ненадобностью, но перед этим еще раз выведем, что у нас получилось
         	console.log(numbers);
         	delete globalThis["numbers"];
@@ -204,14 +210,43 @@
         	//стрелочная аннотация.Функция выводящая в консоль степень от x.    
         	let abc=x =>  console.log(Math.pow(2,x));
         	abc(3);//выводит 8.
-        
-        	//Деструктурирующее присваивание
+        	
+            console.log("дестроктуирующее присваивание для объектов");
+        	//введем объект
         	let fried_egg={calories:212,proteins:13.84,carbs:2.08,fats:16.18};
-        	let {calories,proteins,carbs,fats} = fried_egg;
-        	console.log(calories);
-		console.log(proteins);
-        	console.log(fried_egg);
-              
+            let {calories,proteins,carbs,fats} = fried_egg;
+                 
+            console.log(calories);
+			console.log(proteins);
+            console.log(fried_egg);
+            
+            
+            let {"cal":vv, "prot":gg} = {"prot":15,"cal":314};
+            console.log(vv);
+			console.log(gg);
+            
+            //вид let in для объектов
+            console.log("let...in в объектах");
+            for(let i in fried_egg){
+            	console.log(i+" = "+fried_egg[i]);
+            }
+            console.log("let...in завершен");
+           
+           	console.log("дестроктуирующее присваивание для массива");
+            let bb,cc;
+            function f(){
+            	return[2,7,8,11,12];
+            }
+                        
+            [a,bb,...cc]=f();
+            console.log(a);
+            console.log(bb);
+            console.log(cc);
+            
+            [a,cc,bb]=[2,7,8];
+            console.log(a);
+            console.log(bb);
+            console.log(cc);
 	</script>
   </body>
 </html>
