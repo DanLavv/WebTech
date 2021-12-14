@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!--Выделил в отдельный файл для удобства-->
+<!--Выделил в отдельный файл для удобства + чтобы не зацикливаться на теме сайта-->
 <html>
 	<head>
     	<meta charset = "utf-8">
@@ -58,7 +58,8 @@
                       this.naming = naming;
                       this.weight = weight;                  
           }
-          //добавление метода        
+          //добавление метода
+          
           food2.prototype.change_weight=function(new_weight){
                       this.weight = new_weight;
                       console.log("Вес блюда изменён. Теперь он составляет "+ this.weight+"г");
@@ -73,15 +74,18 @@
                 this.carbohydrates = carbohydrates;
                 this.proteins = proteins;
           }
+          full_food2.prototype = Object.create(food2.prototype);//наследуем родительский метод "получения веса"
           full_food2.prototype.print_all_info=function(){
         			console.log("Блюдо: "+this.naming+"|Вес Блюда: "+this.weight+"г|Содержание на 100г блюда: Калории "+this.calories+"ккал|Жиры "+this.fats+"г|Углеводы "+this.carbohydrates+"г|Белки "+this.proteins+"г");
 	      }
-          
+                    
           let Meal13 = new food2 ("Яичница",100);
           Meal13.change_weight(1214);          
-          let Meal24 = new full_food2 ("Курочка",5000,400,16,2,14);
+          
+          let Meal24 = new full_food2 ("Курочка",5000,400,16,2,14);          
+          
+          Meal24.change_weight(300);
           Meal24.print_all_info();
-
 	    }
        	{
         //прототипное наследие (через Object)
