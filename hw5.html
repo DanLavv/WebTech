@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<!--Выделил в отдельный файл для удобства + чтобы не зацикливаться на теме сайта-->
+<html>
+	<head>
+    	<meta charset = "utf-8">
+        <title>Сlasses in JS</title>
+	</head>
+	<body>
+		<h2>ООП в протипном языке JS</h2>
+		<script>
+        "strict mode";
+        //1. - продемонстрировать наследие (классом,функцией,прототипное наследие)
+        {
+        	console.log("Начало");
+        	class food1{
+            	constructor(naming,weight){
+                	this.naming = naming;
+                    this.weight = weight;                  
+                }
+               	//добавим метод на изменение веса блюда
+				change_weight(new_weight){
+                	this.weight = new_weight;
+                    console.log("Вес блюда изменён. Теперь он составляет "+ this.weight + "г");
+                
+                }
+            
+            }
+            class full_food1 extends food1{
+				constructor(naming,weight,calories,fats,carbohydrates,proteins){
+                	super(naming,weight);
+                    this.calories = calories;
+                    this.fats = fats;
+                    this.carbohydrates = carbohydrates;
+                    this.proteins = proteins;
+                }
+
+				print_all_info(){
+        			console.log("Блюдо: "+this.naming+"|Вес Блюда: "+this.weight+"г|Содержание на 100г блюда: Калории "+this.calories+"ккал|Жиры "+this.fats+"г|Углеводы "+this.carbohydrates+"г|Белки "+this.proteins+"г");
+	            }
+                
+            }
+            
+            
+            
+            let Meal = new food1 ("Яичница",100);
+            let Meal1 = new full_food1("Рис с курицей",300,212,36,72,14);
+            
+            
+            Meal.change_weight(200);            
+            Meal1.change_weight(500);
+            Meal1.print_all_info();
+        
+        
+        }
+        {
+		//продемонстрируем через функции:
+          function food2(naming,weight){
+                      this.naming = naming;
+                      this.weight = weight;                  
+          }
+          //добавление метода
+          
+          food2.prototype.change_weight=function(new_weight){
+                      this.weight = new_weight;
+                      console.log("Вес блюда изменён. Теперь он составляет "+ this.weight+"г");
+
+          }
+            
+          
+          function full_food2(naming,weight,calories,fats,carbohydrates,proteins){
+          		food2.call(this,naming,weight);
+                this.calories = calories;
+                this.fats = fats;
+                this.carbohydrates = carbohydrates;
+                this.proteins = proteins;
+          }
+          full_food2.prototype = Object.create(food2.prototype);//наследуем родительский метод "получения веса"
+          full_food2.prototype.print_all_info=function(){
+        			console.log("Блюдо: "+this.naming+"|Вес Блюда: "+this.weight+"г|Содержание на 100г блюда: Калории "+this.calories+"ккал|Жиры "+this.fats+"г|Углеводы "+this.carbohydrates+"г|Белки "+this.proteins+"г");
+	      }
+                    
+          let Meal13 = new food2 ("Яичница",100);
+          Meal13.change_weight(1214);          
+          
+          let Meal24 = new full_food2 ("Курочка",5000,400,16,2,14);          
+          
+          Meal24.change_weight(300);
+          Meal24.print_all_info();
+	    }
+       	{
+        //прототипное наследие (через Object)
+        	
+          let foodPrototype={
+          	naming:"Блюдо",
+            weight:0,
+            change_naming(new_naming){
+                      this.naming = new_naming;
+                      console.log("Название блюда изменено. Теперь оно называется "+ this.naming);
+
+          	},
+            change_weight(new_weight){
+                      this.weight = new_weight;
+                      console.log("Вес блюда изменён. Теперь он составляет "+ this.weight+"г");
+
+          	}  
+          }
+          
+          
+          let meal100 = Object.create(foodPrototype);
+          meal100.change_naming("Chicken");
+          meal100.change_weight(3000);
+          console.log(meal100);
+        
+        }
+        {//2 - работа с прототипами
+          let obj1 = {prop1:1}
+          let obj2 = {prop2:2}
+          Object.setPrototypeOf(obj2, obj1);
+          //теперь объект 2 обладает также и эл-ами объекта 1.Продемонстрируем это
+          console.log("Work with prototypes")
+
+          console.log(obj1.prop1);
+          //console.log(obj1.prop2);
+          //^Выдаст ошибку по понятным причинам(prop2 не определен в obj1)
+          console.log(obj2.prop1);
+          console.log(obj2.prop2);
+          //получаем прототип + сравниваем
+          console.log(Object.getPrototypeOf(obj2)===obj1);
+        }
+        {//3 - вызов теневого метода
+            //определяем класс еды любого веса
+            console.log("Shadow");
+        	class any_food{
+            	constructor(naming,weight,calories){
+                	this.naming=naming;
+                    this.weight=weight;
+                    this.calories = calories;
+                }
+            }
+            //определяем класс для информации на 100гр блюда
+        	class meal_100 extends any_food{
+            	constructor(naming,calories){
+                	super(naming,100,calories);
+                }
+            }
+            let egg100 = new meal_100("Яичница",212);
+            console.log(egg100);
+        }
+        {//4 - Свойства(неперечисляемое,неизменное,side-effect при изменении при этом Внутри и снаружи классов)
+        	console.log("Properties");
+            //снаружи
+            
+            let meal = {};
+            
+            Object.defineProperty (meal, "time_of_cooking",{   
+                configurable: false,
+                writable: false,
+                enumerable: true,
+                value: 300
+            });
+			
+            Object.defineProperty (meal, "ready",{
+                configurable: true,//возможность удаления
+                writable: true,//изменение значения
+                enumerable: false,//перечисление при выводе ключей или в цикле for in    
+                value: false
+            });
+			
+            
+            Object.defineProperty (meal, "smell",{
+                set:function(time_on_pan){ 
+                	if (this.time_of_cooking === time_on_pan){
+                	              
+                      this.ready = true;
+                      console.log ("It's ready and smells nice");
+                      return "nice";
+                    }
+                }
+            });
+            meal.smell=300;
+            console.log (meal.ready);
+            //внутри
+            
+            class meal_egg{
+					constructor(){
+						this.weight = 100;
+					}
+                    set weight(value){
+						this.weight = double(value);
+					}
+					get weight(){
+						return this.weight;
+					}
+					
+			}            
+       	}
+        {//5 - Вызвать метод с чужим объектом
+        	function foods(name){this.naming = name;}       
+          	function drinks(name){this.naming = name;}
+            
+            foods.prototype.someProperties = function(){
+            	console.log("I have some properties");
+            }
+            
+            drinks.prototype.somePropeties = function(){
+				foods.prototype.someProperties.call(this);
+			}
+
+			let obj9 = new drinks("Love Potion No. 9");
+            obj9.somePropeties();
+			
+                    
+        }
+        {//6 - Cоздать новый метод у всех строк
+        	String.prototype.newMethod = function() {
+				return "Hello you too";  
+			}
+			let string = "Hello World";
+            console.log(string.newMethod());
+        
+        
+        }
+        {//7 - Приватные свойства объектов
+        	class food{
+            		constructor(name){
+						this.naming = name;
+					}
+					#recipe = "Secret ";
+			}
+			let chicken = new food("Курочка");
+            //chicken.#recipe = "Some ingridients"; Private field '#recipe' must be declared in an enclosing class
+        }            
+        </script>
+
+</body>
+</html>
