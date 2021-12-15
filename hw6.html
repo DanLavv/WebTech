@@ -283,10 +283,10 @@
                 
                 
             	//имеется событие нажатия
-                eventElem2.innerHTML = `Приветушки соседушка <a  id="a" style="color:blue"> text</a>`;// событие и теги сохраняется
+                eventElem2.innerHTML += `Приветушки соседушка <a  id= style="color:blue"> text</a>`;// событие и теги сохраняется
                 
-                //переприсваиваем тег HTML элементом и будет ругаться 
-            	//eventElem2.parentElement.innerHTML = `Приветушки соседушка <a  id="a" style="color:blue"> text</a>`;//Cannot read properties of null (reading 'addEventListener')
+                // HTML элементом и будет ругаться 
+            	//eventElem2.parentElement.innerHTML += `Приветушки соседушка <a  id="a" style="color:blue"> text</a>`;//Cannot read properties of null (reading 'addEventListener')
                 //
        			
 
