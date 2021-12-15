@@ -212,13 +212,28 @@
                 }                
             }
             //	Изменение HMTL в текстовом виде
-
+			//	Демонстрация проблемы изменения HTML в текстовом виде
             {
-
-		//	Демонстрация проблемы изменения HTML в текстовом виде
             	let a = document.querySelector("#cal");
                 //Изначально жирным окрашивал всю строку
                 a.innerText = "Калорийность и пищевая ценность";            //видно, что тегb <b> потерялся
+                
+                a.innerHTML += `<a  id="a" style="color:blue"> text</a>`;
+
+                
+                document.addEventListener("copy", () =>  //сработает если скопировать текст
+                    {
+                        let  div  =  document.querySelector('#hellobut');
+                        
+                        let  btn  =  document.createElement('button');
+                        btn.addEventListener('click', () =>  console.log('hello'))
+                        btn.innerText  =  'Test Button';
+                        div.append(btn);
+                        div.innerHTML  =  div.innerHTML + '<br/> a bit more text to the DOM';
+                        //если закомментировать эту строчку то будет выведено hello при нажатии на кнопку
+                        });
+
+   
 
             }
             //	Добавить первым в элемент
@@ -250,11 +265,12 @@
                 
                 let invisibleFunc = function(event){
                 	console.log("Я ничего не вижу");
-                
+                	//проверка валидности события1 - isn't trusted
+                    if(eventMine.isTrusted) console.log("It\'s trusted event");
+                    else console.log("It isn\'t trusted");
                 }
                 
-
-                //исправление функции при создании слушателя
+                
                 elementForEvent.addEventListener("invisible",invisibleFunc);//установка слушателя
                 
                 elementForEvent.dispatchEvent(eventMine);//отправка события
@@ -276,10 +292,18 @@
             	eventElem2.removeAttribute("onclick");
                 //меняем на новый
                 eventElem2.setAttribute("onclick","console.log('Меня точно кто-то заметил...')");
-            
-            
-            
-            
+            	
+                //2	Демонстрация проблемы изменения HTML в текстовом виде
+                
+                
+            	//имеется событие нажатия
+                eventElem2.innerHTML = `Приветушки соседушка <a  id="a" style="color:blue"> text</a>`;// событие и теги сохраняется
+                
+                //переприсваиваем тег HTML элементом и будет ругаться 
+            	//eventElem2.parentElement.innerHTML = `Приветушки соседушка <a  id="a" style="color:blue"> text</a>`;//Cannot read properties of null (reading 'addEventListener')
+                //
+       			
+
               //	Установка события-атрибута через шорткат
               //	Удаление события-атрибута через шорткат
               //	Замена события-атрибута через шорткат
@@ -327,19 +351,11 @@
                         events.preventDefault();
                         
                     }
-                });
-                
-
-                //Проверка на валидность события
-                
-                function isValidEvent(eventName){
-                	let type = typeof document.body["on"+eventName];
-                	console.log(type !== "undefined");
-                	return
-                }
-                isValidEvent("click");//true
-                isValidEvent("visible");//false
-                
+                    
+                    //проверка валидности события2 - trusted
+                    if(eventElem3.isTrusted) console.log("It\'s trusted event");
+                    else console.log("It isn\'t trusted");
+                });               
             	
             }
             //	Немедленное прекращение распространения
