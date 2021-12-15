@@ -212,8 +212,10 @@
                 }                
             }
             //	Изменение HMTL в текстовом виде
-			//	Демонстрация проблемы изменения HTML в текстовом виде
+
             {
+
+		//	Демонстрация проблемы изменения HTML в текстовом виде
             	let a = document.querySelector("#cal");
                 //Изначально жирным окрашивал всю строку
                 a.innerText = "Калорийность и пищевая ценность";            //видно, что тегb <b> потерялся
@@ -251,7 +253,8 @@
                 
                 }
                 
-                
+
+                //исправление функции при создании слушателя
                 elementForEvent.addEventListener("invisible",invisibleFunc);//установка слушателя
                 
                 elementForEvent.dispatchEvent(eventMine);//отправка события
@@ -326,7 +329,8 @@
                     }
                 });
                 
-                //Добавлена проверка на валидность события
+
+                //Проверка на валидность события
                 
                 function isValidEvent(eventName){
                 	let type = typeof document.body["on"+eventName];
