@@ -1,5 +1,196 @@
+<!DOCTYPE html>
+<!--Также для удобства создал отдельный html файл для дз из содержимого основного HTML документа
+Список задач:
+Создание элемента Получение элементов по селектору Получение элемента по селектору Навигация по DOM Создание текстового узла Создание фрагмента документа  Манипуляция атрибутами Удаление атрибута Установка атрибута Удаление класса Проверка наличия класса Изменение HMTL в текстовом виде
+Демонстрация проблемы изменения HTML в текстовом виде 	Переход к предыдущему узлу Узлы-потомки Переход к следующему элементу Переход к предыдущему элементу Элементы-потомки Переход к родителю Добавить первым в элемент Добавить последним в элемент Добавить за элементом Нормализация содержимого
+Добавление текстового узла Добавление фрагмента документа Получение элемента по ID Использование только событий мыши Использование только событий клавиатуры Использование только событий прокрутки Использование только кастомных событий Отправка своего события Проверка события на валидность
+Предотвращение стандартного действия Предотвращение распространения Немедленное прекращение распространения Установка события Установка события-атрибута Удаление события-атрибута Замена события-атрибута Установка события-атрибута через шорткат Удаление события-атрибута через шорткат
+Замена события-атрибута через шорткат Демонстрация различных фаз события Создание одиночного слушателя Создание пассивного слушателя
+Определение истинной цели события Детектирование фазы события
+-->
 
-Result Size: 420 x 889
+<html>
+  <head>
+  	<meta charset="UTF-8">
+    	<title>DOM test</title>
+	<style>    
+    :root{
+
+    	colortext1: #a2a2d0;
+        font-size2: 20px;
+    }
+    /*границы для таблицы*/
+	th, td {
+  		border: 1px solid black;
+	}
+
+    #links::after{
+    	content: "(´｡• ω •｡)";
+        color: black;
+        position: relative;
+        animation: movesmile 5s infinite;
+        animation-direction: alternate;
+    }
+    @keyframes movesmile {
+  		0%   {background: red; left: 0px; top: 0px;}
+  		100%  {background: yellow; left: 200px; top: 0px;} 
+	}
+    h2+ul{
+    	display: block;
+    	background: yellow;
+        width: 200px;
+        border: 1mm solid;
+        
+    }
+
+	</style>
+  </head>
+  <body>
+    <article>
+      
+      <section>
+      	<!--установка событий-атрибутов-->
+        <div class="intro" id = "introd" style="color: #fffff1">Время готовить!</div> 
+        <div id = 'introd2' style="color:#fffffe" onclick="visible()" >Но никто этого не знает =(</div>
+      </section>
+      <h1 id="name">Яичница-глазунья</h1>
+      <section id="description">
+        <p>Простейшее блюдо, которое сможет приготовить <s id=special>почти</s> каждый.</p>
+      </section>
+      
+      <section class="useless",id="foods">
+        <h2>Список продуктов:</h2>
+        <ul id="products">
+          <li id="1">Яйца</li>
+		  <li id="2">Соль</li>
+          <li >Сливочное масло</li>
+        </ul>
+      </section>
+      
+      <section>
+      	<h2 id="instruction">Краткая пошаговая инструкция:</h2>
+      </section>
+      
+    </article>    
+	<section class="useless" id=caloric>
+    	<h2>Калорийность и пищевая ценность:</h2>
+        <table>
+          <caption id=cal><b>Калорийность и пищевая ценность:</b></caption>
+          <tr>
+            <th>Свойство</th>
+            <th>Значение</th>
+          </tr>
+          <tr>
+            <td id:"prop">Калорийность,кКал</td>
+            <td>212</td>
+          </tr>
+          <tr>
+            <td id:"prop">Белки,гр</td>
+            <td>13,84</td>
+          </tr>
+          <tr>
+            <td id:"prop">Углеводы,гр</td>
+            <td>2,08</td>
+          </tr>
+          	<td id:"prop">Жиры,гр</td>
+            <td>16,18</td>
+      	</table>
+	</section>
+    
+    <section>
+    	<h2 id=links>Ссылки:</h2>
+        <h3>Насколько вы оценили первую ссылку?</h3>
+        <section>        	
+        	<input id="answer" type="number" min="1" max="10" required>
+        	<button id="confirm">Confirm</button>
+    	</section>
+        <ul>
+          <li>
+          	<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><s>Рецепт на все случаи жизни</s>; 
+            </a> 
+          </li>
+          <li>
+          	<a href="https://www.russianfood.com/recipes/recipe.php?rid=160836">Ссылка на рецепт; 
+            </a> 
+          </li>
+        </ul>
+    </section>
+    <!--для демонстрации погружения-->
+    <section class="phase">SECTION
+        <div class="phase">DIV
+            <p class="phase">P</p>
+        </div>
+    </section>
+    
+    
+	<script>
+		"strict mode";
+        {
+        	//	Создание элемента
+            let firstElement = document.createElement("h3");//создали элемент
+        	
+            //	Получение элементов по селектору
+            let listOfElements = document.querySelectorAll("h2"); 
+  			
+            for (let elem of listOfElements) {
+    			console.log(elem.innerHTML);//выводим названия разделов
+  			}
+            //	Получение элемента по селектору
+            let secondElement = document.querySelector("#description");//получили элемент по селектору            
+            
+            //	Получение элемента по ID
+            let thirdElement = document.getElementById("description");//элемент по ID
+             
+            
+            //	Создание текстового узла
+            //	Добавление текстового узла
+            let text1 = document.createTextNode ("Для  нам этого нам понабится:"); //создание текстового узла             
+            secondElement.appendChild(text1); //добавление текстового узла 
+            
+            
+            //	Навигация по DOM
+            //	Узлы-потомки
+            //	Переход к следующему элементу            
+			//	Переход к предыдущему элементу
+            //	Переход к родителю
+            //	Элементы-потомки
+            console.log(secondElement.childNodes[0] === secondElement.firstChild);//примеры доступа к первому элементу- потомку -  true
+			console.log(secondElement.childNodes[secondElement.childNodes.length - 1] === secondElement.lastChild);//примеры доступа к последнему элементу- потомку  - true
+            for (var i = 0; i < document.body.childNodes.length; i++) {
+      			console.log( document.body.childNodes[i] ); //вариант вывода элементов - узлов-потомков  из document.body
+    		}
+            //касательно элементов-соседей и переходов
+            
+            console.log(document.getElementById("description").previosElementSibling);//выводим предыдущий за счет previosElementSibling получим предыдущий текстовый узел.
+            console.log(document.getElementById("description").nextElementSibling);//выводим следующий|Переход к следующему элементу. 
+            
+
+            //	Переход к родителю			
+            console.log(document.body.parentNode === document.documentElement);       	
+             
+            
+            //	Создание фрагмента документа
+            //	Добавление фрагмента документа
+            
+            let cooking = ["ставим сковородку на огонь выше среднего","выкладываем масло","разбиваем яйца","выливаем на сковородку","жарим 3-4 минуты","солим и подаём"];
+            
+            let instr = document.querySelector("#instruction");
+            let cookingDoc = new DocumentFragment(); //создание фрагмента документа
+            
+            cooking.forEach((step)=>{
+            
+            	let li = document.createElement("li");
+                li.innerHTML = step;
+                cookingDoc.appendChild(li);
+            
+            
+            })
+            
+            instr.appendChild(cookingDoc);
+            
+			//	Манипуляция атрибутами
+            //	Удаление атрибута
+			//	Установка атрибута
             console.log(instr.hasAttribute("style"));//false
             
             instr.setAttribute("style","color:blue");//устанавливаем атрибут с цветом шрифта
@@ -9,58 +200,58 @@ Result Size: 420 x 889
            
             instr.setAttribute("style","font-size: 14px"); //размер шрифта
             
-            //  Удаление класса
-            //  Проверка наличия класса
+            //	Удаление класса
+			//	Проверка наличия класса
             {
-                let a = document.querySelector("#caloric");
+            	let a = document.querySelector("#caloric");
                 console.log(a);
                 
                 if(a.classList.contains("useless")){
-                    a.classList.remove("useless");
-                    console.log("бесполезный класс удален");
+                	a.classList.remove("useless");
+                	console.log("бесполезный класс удален");
                 }                
             }
-            //  Изменение HMTL в текстовом виде
-            //  Демонстрация проблемы изменения HTML в текстовом виде
+            //	Изменение HMTL в текстовом виде
+			//	Демонстрация проблемы изменения HTML в текстовом виде
             {
-                let a = document.querySelector("#cal");
+            	let a = document.querySelector("#cal");
                 //Изначально жирным окрашивал всю строку
                 a.innerText = "Калорийность и пищевая ценность";            //видно, что тегb <b> потерялся
                 
                 a.innerHTML += `<a  id="a" style="color:blue"> text</a>`;
-​
-​
+
+
             }
-            //  Добавить первым в элемент
-            //  Добавить последним в элемент
-            //  Добавить за элементом
-            //
-            {
+            //	Добавить первым в элемент
+			//	Добавить последним в элемент
+			//	Добавить за элементом
+			//
+           	{
                 let elem = document.querySelector("#special")
                 elem.prepend("точно, ");//в начало elem
                 elem.append(", не только ");//добавление в конец elem
                 elem.append("лишь");//добавление в конец elem
                 elem.after(" врят ли");//добавление после elem
-            //  Нормализация содержимого
+            //	Нормализация содержимого
                 elem.normalize();
                 console.log(elem);
             }
             
-    
+	
             // Использование кастомных событий, отправка своего события(-> нужно его создать), 37) установка события
             {
-                
+				
                 let elementForEvent = document.getElementById("introd");//получаем элемент для события
                 
                 let eventMine = new CustomEvent ("invisible", {
-                        detail: { 
-                            color: "#fffff1"//среагирует на белый цвет у текста
+                		detail: { 
+                        	color: "#fffff1"//среагирует на белый цвет у текста
                         }
-                });//создали кастомное событие
+            	});//создали кастомное событие
                 
                 let invisibleFunc = function(event){
-                    console.log("Я ничего не вижу");
-                    //проверка валидности события1 - isn't trusted
+                	console.log("Я ничего не вижу");
+                	//проверка валидности события1 - isn't trusted
                     if(eventMine.isTrusted) console.log("It\'s trusted event");
                     else console.log("It isn\'t trusted");
                 }
@@ -74,3 +265,151 @@ Result Size: 420 x 889
                 
             }
                 
+            //	Установка события-атрибута
+			//	Удаление события-атрибута
+			//	Замена события-атрибута    
+            {
+            	let eventElem2 = document.getElementById("introd");
+                
+            	eventElem2.setAttribute("onclick", "console.log('Неужели, кто-то заметил меня?')");//установка события=атрибута. При тыке на невидимый теуст в логах отобразится сообщение
+               
+                //можно закоментить и увидеть, что атрибут поставился
+                //удаляем
+            	eventElem2.removeAttribute("onclick");
+                //меняем на новый
+                eventElem2.setAttribute("onclick","console.log('Меня точно кто-то заметил...')");
+            	
+                //2	Демонстрация проблемы изменения HTML в текстовом виде
+                
+                
+            	//имеется событие нажатия
+                eventElem2.innerHTML = `Приветушки соседушка <a  id="a" style="color:blue"> text</a>`;// событие и теги сохраняется
+                
+                //переприсваиваем тег HTML элементом и будет ругаться 
+            	//eventElem2.parentElement.innerHTML = `Приветушки соседушка <a  id="a" style="color:blue"> text</a>`;//Cannot read properties of null (reading 'addEventListener')
+                //
+       			
+
+              //	Установка события-атрибута через шорткат
+              //	Удаление события-атрибута через шорткат
+              //	Замена события-атрибута через шорткат
+              //	Проверка события на валидность
+              	
+              	document.getElementById("confirm").onclick = function checkAnswer(){
+                    	console.log("Пожалуйста, выберите оценку в диапазоне от 1 до 10");
+                    
+                }
+                //установка события-атрибута
+                document.getElementById("confirm").onclick = '';//удаление
+                //замена с проверкой на валидность
+                document.getElementById("confirm").onclick = function checkAnswer(){
+                	let eventElem3 = document.getElementById("answer");
+                	if (eventElem3.checkValidity()=== false){
+                    	console.log("Пожалуйста, выберите оценку в диапазоне от 1 до 10");
+                    }
+                	else console.log("Never Gonna Give You Up...");
+                }
+                
+
+            }
+            //	Предотвращение стандартного действия
+            {
+            	
+            	let eventElem3 = document.getElementById("introd2");
+               
+                function visible(){
+                    let customIn = new CustomEvent("visible", 
+                    {
+                        cancelable: true //для PreventDefault
+                    });
+                    if (!eventElem3.dispatchEvent(customIn)){
+                        console.log("Он всё еще невидим");
+                    }
+                    else{   
+                        eventElem3.style.color='#000000';
+                    }
+                }
+                
+                eventElem3.addEventListener("visible", function(events)
+                {
+                    if(!confirm("Текст не виден с нажатием"))
+                    {
+                        events.preventDefault();
+                        
+                    }
+                    
+                    //проверка валидности события2 - trusted
+                    if(eventElem3.isTrusted) console.log("It\'s trusted event");
+                    else console.log("It isn\'t trusted");
+                });               
+            	
+            }
+            //	Немедленное прекращение распространения
+			//	Демонстрация различных фаз события
+
+			//	Создание одиночного слушателя
+			//	Создание пассивного слушателя
+			//	Определение истинной цели события, детектирование фазы и типа события.
+            {            
+            	//создание одиночного слушателя
+                document.getElementById("1").addEventListener("click", () => {
+                	console.log("Яйца первой категории");
+                }, { once: true });
+
+                let stop = document.getElementById("2");
+                stop.addEventListener("click", executed);
+                stop.addEventListener("click", notExecuted);
+				//прекращение распространения
+                function executed(event) {
+                  console.log ("Не переборщите с солью");
+                  event.stopImmediatePropagation();
+                }
+
+                function notExecuted() {
+                  console.log ("Не хватает соли");
+                }
+
+
+                document.body.addEventListener("wheel", (event)=> {
+                  console.log ("Продолжаем листать вниз, хотя уже некуда?=)");
+                  //event.preventDefault();                  
+                }, {capture: false, passive: true}); //пассивный слушатель - не вызовет preventDefault(), 
+                //если вызвать в консоли,то будет ошибка, но функция будет вызвана, пассивный слушатель предусматривает capture: false!
+
+                // Создадим список для опредления цели события                
+                
+                    let ol = document.createElement('ol');
+                    document.body.appendChild(ol);
+
+                    let li1 = document.createElement('li');
+                    li1.innerText = "I want to disappear!";
+                    let li2 = document.createElement('li');
+                    li2.innerText = "Me too!";
+                    ol.appendChild(li1);
+                    ol.appendChild(li2);
+
+                    function disappear(element){
+                      element.target.style.visibility = "hidden";
+                    } //сслылается на родителя li; здесь показано всплытие
+
+                    ol.addEventListener("click", disappear);
+
+                    //Демонстрация фаз события (погружение, цель (где будет клик), всплытие)
+                    for(let element of document.querySelectorAll(".phase")) {
+                        element.addEventListener("click", () => console.log(`Capturing: ${element.tagName}`), {capture: true});
+                        element.addEventListener("click", () => console.log(`Bubbling: ${element.tagName}`),{capture:false});
+                    }
+                }
+            
+        }
+	</script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
